@@ -10,6 +10,30 @@
       "StackName": "amplify-theobotdocs-dev-142705",
       "StackId": "arn:aws:cloudformation:us-east-1:438420706355:stack/amplify-theobotdocs-dev-142705/ef46cad0-9b7f-11ee-acc2-0a6e8d182f6d",
       "AmplifyAppId": "d38r9fdfb2fikk"
+    },
+    "categories": {
+      "api": {
+        "theobotdocs": {},
+        "theobotapi": {}
+      },
+      "auth": {
+        "theobotdocs048e7a79": {}
+      },
+      "function": {
+        "theobotapi": {
+          "jiraApi": "ATATT3xFfGF0KzHlAhsJJ8f7YwnSDXE20JHhwSdx0ErK7LuP0XnIEWVzeYqz9L1Sw47KtOEodyIvxGuJbtEQpgqB3lun3s7HCObj-5uTyG1HGpScwG3TzfNgR-hTfNemhoaTI-eIOfMdcPVQFiFLqZxDXZRW-OPst7XojV2Loi-DqwoF7Kavc8A=AC41406D",
+          "pineconeApi": "1c783c5c-ddc7-4418-88d8-71278ce7f6dd",
+          "deploymentBucketName": "amplify-theobotdocs-dev-142705-deployment",
+          "s3Key": "amplify-builds/theobotapi-4e6176737134452f636b-build.zip"
+        },
+        "S3Triggerd330daf8": {
+          "deploymentBucketName": "amplify-theobotdocs-dev-142705-deployment",
+          "s3Key": "amplify-builds/S3Triggerd330daf8-7a6e724a6e4e43725736-build.zip"
+        }
+      },
+      "storage": {
+        "theobotfiles": {}
+      }
     }
   }
 }

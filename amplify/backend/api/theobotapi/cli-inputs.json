@@ -1,0 +1,68 @@
+{
+  "version": 1,
+  "paths": {
+    "/users": {
+      "name": "/users",
+      "lambdaFunction": "theobotapi",
+      "permissions": {
+        "setting": "open"
+      }
+    },
+    "/planets": {
+      "name": "/planets",
+      "lambdaFunction": "theobotapi",
+      "permissions": {
+        "setting": "open"
+      }
+    },
+    "/moons": {
+      "name": "/moons",
+      "lambdaFunction": "theobotapi",
+      "permissions": {
+        "setting": "open"
+      }
+    },
+    "/satellites": {
+      "name": "/satellites",
+      "lambdaFunction": "theobotapi",
+      "permissions": {
+        "setting": "open"
+      }
+    },
+    "/projects": {
+      "name": "/projects",
+      "lambdaFunction": "theobotapi",
+      "permissions": {
+        "setting": "open"
+      }
+    },
+    "/tasks": {
+      "name": "/tasks",
+      "lambdaFunction": "theobotapi",
+      "permissions": {
+        "setting": "open"
+      }
+    },
+    "/files": {
+      "name": "/files",
+      "lambdaFunction": "theobotapi",
+      "permissions": {
+        "setting": "open"
+      }
+    },
+    "/chats": {
+      "name": "/chats",
+      "lambdaFunction": "theobotapi",
+      "permissions": {
+        "setting": "open"
+      }
+    },
+    "/events": {
+      "name": "/events",
+      "lambdaFunction": "theobotapi",
+      "permissions": {
+        "setting": "open"
+      }
+    }
+  }
+}

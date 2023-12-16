@@ -1,0 +1,1239 @@
+openapi: 3.0.0
+info:
+  title: TheoBot Database API Layer
+  description: |-
+    This is a sample Pet Store Server based on the OpenAPI 3.0 specification.  You can find out more about
+    Swagger at [https://swagger.io](https://swagger.io). In the third iteration of the pet store, we've switched to the design first approach!
+    You can now help us improve the API whether it's by making changes to the definition itself or to the code.
+    That way, with time, we can improve the API in general, and expose some of the new features in OAS3.
+
+    _If you're looking for the Swagger 2.0/OAS 2.0 version of Petstore, then click [here](https://editor.swagger.io/?url=https://petstore.swagger.io/v2/swagger.yaml). Alternatively, you can load via the `Edit > Load Petstore OAS 2.0` menu option!_
+    
+    Some useful links:
+    - [TelegramBot API Docs](https://github.com/swagger-api/swagger-petstore)
+    - [The source API definition for the Pet Store](https://github.com/swagger-api/swagger-petstore/blob/master/src/main/resources/openapi.yaml)
+
+servers:
+  - url: https://dqpllfj7tb.execute-api.us-east-1.amazonaws.com/dev
+paths:
+  /projects:
+    get:
+      tags:
+        - Projects
+      summary: List all projects
+      operationId: listProjects
+      responses:
+        '200':
+          description: An array of projects
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Project'
+    post:
+      tags:
+        - Projects
+      summary: Create a new project
+      operationId: createProject
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Project'
+      responses:
+        '201':
+          description: Project created
+        '400':
+          description: Invalid input
+
+  /projects/{id}:
+    get:
+      tags:
+        - Projects
+      summary: Get a project by ID
+      operationId: getProject
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Detailed information about a project
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Project'
+        '404':
+          description: Project not found
+    put:
+      tags:
+        - Projects
+      summary: Update a project
+      operationId: updateProject
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Project'
+      responses:
+        '200':
+          description: Project updated
+        '400':
+          description: Invalid input
+        '404':
+          description: Project not found
+    delete:
+      tags:
+        - Projects
+      summary: Delete a project
+      operationId: deleteProject
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Project deleted
+        '404':
+          description: Project not found
+
+  /projects/byMoon/{moonID}:
+    get:
+      tags:
+        - Projects
+      summary: Get projects by moon ID
+      operationId: projectsByMoonID
+      parameters:
+        - name: moonID
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: An array of projects associated with a moon ID
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Project'
+
+  /users:
+    post:
+      tags:
+        - Users
+      summary: Create a new user
+      operationId: createUser
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+      responses:
+        '201':
+          description: User created
+        '400':
+          description: Invalid input
+    get:
+      tags:
+        - Users
+      summary: List all users
+      operationId: listUsers
+      responses:
+        '200':
+          description: A list of users
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/User'
+  /users/{id}:
+    get:
+      tags:
+        - Users
+      summary: Get user by specific id
+      operationId: getUserById
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: User found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '404':
+          description: User not found
+    put:
+      tags:
+        - Users
+      summary: Update a specific user
+      operationId: updateUser
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+      responses:
+        '200':
+          description: User updated
+        '400':
+          description: Invalid input
+        '404':
+          description: User not found
+    delete:
+      tags:
+        - Users
+      summary: Deletes a user
+      operationId: deleteUser
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: User deleted
+        '404':
+          description: User not found
+  /users/verify/{id}:
+    post:
+      tags:
+        - Users
+      summary: Verifies a user
+      operationId: verifyUser
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: User verified
+        '404':
+          description: User not found
+  /satellites:
+    get:
+      tags:
+        - Satellites
+      summary: List all satellites
+      operationId: listSatellites
+      responses:
+        '200':
+          description: An array of satellites
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Satellite'
+
+  /satellites/{id}:
+    get:
+      tags:
+        - Satellites
+      summary: Get a satellite by ID
+      operationId: getSatellite
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Detailed information about a satellite
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Satellite'
+        '404':
+          description: Satellite not found
+    put:
+      tags:
+        - Satellites
+      summary: Update a satellite by ID
+      operationId: updateSatellite
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Satellite'
+      responses:
+        '200':
+          description: Satellite updated
+        '400':
+          description: Invalid input
+        '404':
+          description: Satellite not found
+    delete:
+      tags:
+        - Satellites
+      summary: Delete a satellite by ID
+      operationId: deleteSatellite
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Satellite deleted
+        '404':
+          description: Satellite not found
+  /moons:
+    get:
+      tags:
+        - Moons
+      summary: List all moons
+      operationId: listMoons
+      responses:
+        '200':
+          description: An array of moons
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Moon'
+
+  /moons/{id}:
+    get:
+      tags:
+        - Moons
+      summary: Get a moon by ID
+      operationId: getMoon
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Detailed information about a moon
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Moon'
+        '404':
+          description: Moon not found
+    put:
+      tags:
+        - Moons
+      summary: Update a moon
+      operationId: updateMoon
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Moon'
+      responses:
+        '200':
+          description: Moon updated
+        '400':
+          description: Invalid input
+        '404':
+          description: Moon not found
+    delete:
+      tags:
+        - Moons
+      summary: Delete a moon
+      operationId: deleteMoon
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Moon deleted
+        '404':
+          description: Moon not found
+
+  /moons/byPlanet/{planetID}:
+    get:
+      tags:
+        - Moons
+      summary: Get moons by planet ID
+      operationId: moonsByPlanetID
+      parameters:
+        - name: planetID
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: An array of moons associated with a planet ID
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Moon'
+
+  /moons/byEvent/{eventID}:
+    get:
+      tags:
+        - Moons
+      summary: Get moons by event ID
+      operationId: moonsByEventID
+      parameters:
+        - name: eventID
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: An array of moons associated with an event ID
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Moon'
+  /planets:
+    get:
+      tags:
+        - Planets
+      summary: List all planets
+      operationId: listPlanets
+      responses:
+        '200':
+          description: An array of planets
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Planet'
+    post:
+      tags:
+        - Planets
+      summary: Create a new planet
+      operationId: createPlanet
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Planet'
+      responses:
+        '201':
+          description: Planet created
+        '400':
+          description: Invalid input
+
+  /planets/{id}:
+    get:
+      tags:
+        - Planets
+      summary: Get a planet by ID
+      operationId: getPlanet
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Detailed information about a planet
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Planet'
+        '404':
+          description: Planet not found
+    put:
+      tags:
+        - Planets
+      summary: Update a planet
+      operationId: updatePlanet
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Planet'
+      responses:
+        '200':
+          description: Planet updated
+        '400':
+          description: Invalid input
+        '404':
+          description: Planet not found
+    delete:
+      tags:
+        - Planets
+      summary: Delete a planet
+      operationId: deletePlanet
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Planet deleted
+        '404':
+          description: Planet not found
+
+  /planets/byEvent/{eventID}:
+    get:
+      tags:
+        - Planets
+      summary: Get planets by event ID
+      operationId: planetsByEventID
+      parameters:
+        - name: eventID
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: An array of planets associated with an event ID
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Planet'
+  /files:
+    get:
+      tags:
+        - Files
+      summary: List all files
+      operationId: listFiles
+      responses:
+        '200':
+          description: An array of files
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/File'
+    post:
+      tags:
+        - Files
+      summary: Create a new file
+      operationId: createFile
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/File'
+      responses:
+        '201':
+          description: File created
+        '400':
+          description: Invalid input
+
+  /files/{id}:
+    get:
+      tags:
+        - Files
+      summary: Get a file by ID
+      operationId: getFile
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Detailed information about a file
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/File'
+        '404':
+          description: File not found
+    put:
+      tags:
+        - Files
+      summary: Update a file
+      operationId: updateFile
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/File'
+      responses:
+        '200':
+          description: File updated
+        '400':
+          description: Invalid input
+        '404':
+          description: File not found
+    delete:
+      tags:
+        - Files
+      summary: Delete a file
+      operationId: deleteFile
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: File deleted
+        '404':
+          description: File not found
+  /tasks:
+    get:
+      tags:
+        - Tasks
+      summary: List all tasks
+      operationId: listTasks
+      responses:
+        '200':
+          description: An array of tasks
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Task'
+    post:
+      tags:
+        - Tasks
+      summary: Create a new task
+      operationId: createTask
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Task'
+      responses:
+        '201':
+          description: Task created
+        '400':
+          description: Invalid input
+
+  /tasks/{id}:
+    get:
+      tags:
+        - Tasks
+      summary: Get a task by ID
+      operationId: getTask
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Detailed information about a task
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Task'
+        '404':
+          description: Task not found
+    put:
+      tags:
+        - Tasks
+      summary: Update a task
+      operationId: updateTask
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Task'
+      responses:
+        '200':
+          description: Task updated
+        '400':
+          description: Invalid input
+        '404':
+          description: Task not found
+    delete:
+      tags:
+        - Tasks
+      summary: Delete a task
+      operationId: deleteTask
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Task deleted
+        '404':
+          description: Task not found
+
+  /tasks/byProject/{projectID}:
+    get:
+      tags:
+        - Tasks
+      summary: Get tasks by project ID
+      operationId: tasksByProjectID
+      parameters:
+        - name: projectID
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: An array of tasks associated with a project ID
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Task'
+  /chats:
+    get:
+      tags:
+        - Chats
+      summary: List all chat messages
+      operationId: listChats
+      responses:
+        '200':
+          description: An array of chat messages
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Chat'
+    post:
+      tags:
+        - Chats
+      summary: Create a new chat message
+      operationId: createChat
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Chat'
+      responses:
+        '201':
+          description: Chat message created
+        '400':
+          description: Invalid input
+
+  /chats/{id}:
+    get:
+      tags:
+        - Chats
+      summary: Get a chat message by ID
+      operationId: getChat
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Detailed information about a chat message
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Chat'
+        '404':
+          description: Chat message not found
+    put:
+      tags:
+        - Chats
+      summary: Update a chat message
+      operationId: updateChat
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Chat'
+      responses:
+        '200':
+          description: Chat message updated
+        '400':
+          description: Invalid input
+        '404':
+          description: Chat message not found
+    delete:
+      tags:
+        - Chats
+      summary: Delete a chat message
+      operationId: deleteChat
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Chat message deleted
+        '404':
+          description: Chat message not found
+  /events:
+    get:
+      tags:
+        - Events
+      summary: List all events
+      operationId: listEvents
+      responses:
+        '200':
+          description: An array of events
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Event'
+    post:
+      tags:
+        - Events
+      summary: Create a new event
+      operationId: createEvent
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Event'
+      responses:
+        '201':
+          description: Event created
+        '400':
+          description: Invalid input
+
+  /events/{id}:
+    get:
+      tags:
+        - Events
+      summary: Get an event by ID
+      operationId: getEvent
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Detailed information about an event
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Event'
+        '404':
+          description: Event not found
+    put:
+      tags:
+        - Events
+      summary: Update an event
+      operationId: updateEvent
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Event'
+      responses:
+        '200':
+          description: Event updated
+        '400':
+          description: Invalid input
+        '404':
+          description: Event not found
+    delete:
+      tags:
+        - Events
+      summary: Delete an event
+      operationId: deleteEvent
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Event deleted
+        '404':
+          description: Event not found
+
+ 
+components:
+  schemas:
+    Satellite:
+      type: object
+      required:
+        - id
+        - moonID
+        - title
+      properties:
+        id:
+          type: string
+          description: Unique identifier for the Satellite
+        moonID:
+          type: string
+          description: Identifier for the Moon that the Satellite is associated with
+        title:
+          type: string
+          description: Title of the Satellite
+        description:
+          type: string
+          description: Description of the Satellite
+        User:
+          $ref: '#/components/schemas/User'
+    User:
+      type: object
+      required:
+        - id
+        - firstName
+        - username
+        - completedOnboarding
+        - role
+      properties:
+        id:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+        email:
+          type: string
+        phone:
+          type: string
+        username:
+          type: string
+        completedOnboarding:
+          type: boolean
+        role:
+          $ref: '#/components/schemas/UserRole'
+        bio:
+          type: string
+    UserRole:
+      type: string
+      enum:
+        - SUPER_ADMIN
+        - ADMIN
+        - MEMBER
+        - VIEWER
+    Moon:
+      type: object
+      required:
+        - id
+        - name
+        - planetID
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        planetID:
+          type: string
+        satellites:
+          type: array
+          items:
+            $ref: '#/components/schemas/Satellite'
+        projects:
+          type: array
+          items:
+            $ref: '#/components/schemas/Project'
+        files:
+          type: array
+          items:
+            $ref: '#/components/schemas/File'
+        chats:
+          type: array
+          items:
+            $ref: '#/components/schemas/Chat'
+        eventID:
+          type: string
+    Project:
+      type: object
+      required:
+        - id
+        - moonID
+        - name
+        - status
+      properties:
+        id:
+          type: string
+        moonID:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+        status:
+          type: string
+          enum:
+            - ACTIVE
+            - COMPLETED
+            - ON_HOLD
+        tasks:
+          type: array
+          items:
+            $ref: '#/components/schemas/Task'
+        members:
+          type: array
+          items:
+            $ref: '#/components/schemas/User'
+        roles:
+          type: array
+          items:
+            $ref: '#/components/schemas/ProjectRole'
+        files:
+          type: array
+          items:
+            $ref: '#/components/schemas/File'
+        chats:
+          type: array
+          items:
+            $ref: '#/components/schemas/Chat'
+    Planet:
+      type: object
+      required:
+        - id
+        - name
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+        files:
+          type: array
+          items:
+            $ref: '#/components/schemas/File'
+        chats:
+          type: array
+          items:
+            $ref: '#/components/schemas/Chat'
+        moons:
+          type: array
+          items:
+            $ref: '#/components/schemas/Moon'
+        eventID:
+          type: string
+    File:
+      type: object
+      required:
+        - id
+        - name
+        - url
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        url:
+          type: string
+        uploadedBy:
+          $ref: '#/components/schemas/User'
+    Task:
+      type: object
+      required:
+        - id
+        - projectID
+        - title
+        - status
+      properties:
+        id:
+          type: string
+        projectID:
+          type: string
+        title:
+          type: string
+        description:
+          type: string
+        status:
+          $ref: '#/components/schemas/TaskStatus'
+        assignedUsers:
+          type: array
+          items:
+            $ref: '#/components/schemas/User'
+        dueDate:
+          type: string
+          format: date
+        files:
+          type: array
+          items:
+            $ref: '#/components/schemas/File'
+        chats:
+          type: array
+          items:
+            $ref: '#/components/schemas/Chat'
+        notes:
+          type: array
+          items:
+            type: string
+    TaskStatus:
+      type: string
+      enum:
+        - TO_DO
+        - IN_PROGRESS
+        - DONE
+    Chat:
+      type: object
+      required:
+        - id
+        - message
+        - sentAt
+        - sentBy
+      properties:
+        id:
+          type: string
+        message:
+          type: string
+        sentAt:
+          type: string
+          format: date-time
+        sentBy:
+          $ref: '#/components/schemas/User'
+    Event:
+      type: object
+      required:
+        - id
+        - title
+      properties:
+        id:
+          type: string
+        title:
+          type: string
+        description:
+          type: string
+        date:
+          type: array
+          items:
+            type: string
+            format: date
+        time:
+          type: array
+          items:
+            type: string
+        location:
+          type: string
+        attendees:
+          type: array
+          items:
+            $ref: '#/components/schemas/User'
+        moons:
+          type: array
+          items:
+            $ref: '#/components/schemas/Moon'
+        planets:
+          type: array
+          items:
+            $ref: '#/components/schemas/Planet'
+    ProjectRole:
+      type: object
+      required:
+        - id
+        - projectID
+        - title
+      properties:
+        id:
+          type: string
+        projectID:
+          type: string
+          description: The ID of the project this role is associated with.
+        title:
+          type: string
+          description: The title of the project role.
+        description:
+          type: string
+          description: A brief description of the role.
+        assignedTo:
+          $ref: '#/components/schemas/User'
+          description: The user who is assigned to this role.
