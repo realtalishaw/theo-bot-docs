@@ -242,7 +242,33 @@ paths:
         '404':
           description: User not found
   /satellites:
-    get:
+   post:
+      summary: Create a new satellite
+      description: Adds a new satellite to the system
+      operationId: createSatellite
+      tags:
+        - Satellites
+      requestBody:
+        description: Satellite object that needs to be added
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Satellite'
+      responses:
+        '201':
+          description: Satellite created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Satellite'
+        '400':
+          description: Invalid input
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  get:
       tags:
         - Satellites
       summary: List all satellites
@@ -418,27 +444,7 @@ paths:
                 items:
                   $ref: '#/components/schemas/Moon'
 
-  /moons/byEvent/{eventID}:
-    get:
-      tags:
-        - Moons
-      summary: Get moons by event ID
-      operationId: moonsByEventID
-      parameters:
-        - name: eventID
-          in: path
-          required: true
-          schema:
-            type: string
-      responses:
-        '200':
-          description: An array of moons associated with an event ID
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Moon'
+  
   /planets:
     get:
       tags:
@@ -533,27 +539,6 @@ paths:
         '404':
           description: Planet not found
 
-  /planets/byEvent/{eventID}:
-    get:
-      tags:
-        - Planets
-      summary: Get planets by event ID
-      operationId: planetsByEventID
-      parameters:
-        - name: eventID
-          in: path
-          required: true
-          schema:
-            type: string
-      responses:
-        '200':
-          description: An array of planets associated with an event ID
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Planet'
   /files:
     get:
       tags:
@@ -647,6 +632,56 @@ paths:
           description: File deleted
         '404':
           description: File not found
+  /files/moon/{moonId}:
+    get:
+      tags:
+        - Files
+      summary: List all files associated with a specific moon
+      parameters:
+        - name: moonId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: A list of files
+        '500':
+          description: Error retrieving moon files
+
+  /files/task/{taskId}:
+    get:
+      tags:
+        - Files
+      summary: List all files associated with a specific task
+      parameters:
+        - name: taskId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: A list of files
+        '500':
+          description: Error retrieving task files
+
+  /files/project/{projectId}:
+    get:
+      tags:
+        - Files
+      summary: List all files associated with a specific project
+      parameters:
+        - name: projectId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: A list of files
+        '500':
+          description: Error retrieving project files
   /tasks:
     get:
       tags:
@@ -662,6 +697,8 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Task'
+    paths:
+
     post:
       tags:
         - Tasks
@@ -672,12 +709,43 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Task'
+              type: object
+              properties:
+                title:
+                  type: string
+                  description: The title of the task
+                description:
+                  type: string
+                  description: The description of the task
+                assignee:
+                  type: string
+                  description: The assignee of the task
+                projectID:
+                  type: string
+                  description: The ID of the project the task belongs to
+                dueDate:
+                  type: string
+                  format: date-time
+                  description: The due date of the task
+                taskType:
+                  type: string
+                  description: The type of the task
+                notes:
+                  type: string
+                  description: Any notes related to the task
+                status:
+                  type: string
+                  description: The status of the task
       responses:
-        '201':
-          description: Task created
-        '400':
-          description: Invalid input
+        '200':
+          description: Task successfully created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Task'
+        '500':
+          description: Error creating task
+
 
   /tasks/{id}:
     get:
@@ -981,6 +1049,7 @@ components:
         - username
         - completedOnboarding
         - role
+        - status
       properties:
         id:
           type: string
@@ -1000,6 +1069,8 @@ components:
           $ref: '#/components/schemas/UserRole'
         bio:
           type: string
+        status:
+          $ref: '#/components/schemas/UserStatus'
     UserRole:
       type: string
       enum:
@@ -1007,6 +1078,12 @@ components:
         - ADMIN
         - MEMBER
         - VIEWER
+    UserStatus:
+      type: string
+      enum:
+        - PENDING
+        - CONFIRMED
+        - SUSPENDED
     Moon:
       type: object
       required:
@@ -1045,6 +1122,7 @@ components:
         - moonID
         - name
         - status
+        - projectLead
       properties:
         id:
           type: string
@@ -1060,6 +1138,9 @@ components:
             - ACTIVE
             - COMPLETED
             - ON_HOLD
+        projectLead:
+          type: string
+          description: Name of the project lead. Used for Jira project creation.
         tasks:
           type: array
           items:
@@ -1080,6 +1161,7 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Chat'
+
     Planet:
       type: object
       required:

@@ -18,10 +18,15 @@
       "dependsOn": [],
       "output": {
         "authConfig": {
-          "additionalAuthenticationProviders": [],
+          "additionalAuthenticationProviders": [
+            {
+              "authenticationType": "AWS_IAM"
+            }
+          ],
           "defaultAuthentication": {
             "apiKeyConfig": {
-              "apiKeyExpirationDays": 7
+              "apiKeyExpirationDays": 30,
+              "description": "api key description"
             },
             "authenticationType": "API_KEY"
           }
@@ -99,6 +104,56 @@
       ],
       "providerPlugin": "awscloudformation",
       "service": "Lambda"
+    }
+  },
+  "parameters": {
+    "AMPLIFY_function_S3Triggerd330daf8_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "S3Triggerd330daf8"
+        }
+      ]
+    },
+    "AMPLIFY_function_S3Triggerd330daf8_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "S3Triggerd330daf8"
+        }
+      ]
+    },
+    "AMPLIFY_function_theobotapi_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "theobotapi"
+        }
+      ]
+    },
+    "AMPLIFY_function_theobotapi_jiraApi": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "theobotapi"
+        }
+      ]
+    },
+    "AMPLIFY_function_theobotapi_pineconeApi": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "theobotapi"
+        }
+      ]
+    },
+    "AMPLIFY_function_theobotapi_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "theobotapi"
+        }
+      ]
     }
   },
   "storage": {

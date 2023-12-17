@@ -42,84 +42,46 @@ See the License for the specific language governing permissions and limitations 
 	PINECONE_API
 Amplify Params - DO NOT EDIT */
 
-const express = require('express')
-const bodyParser = require('body-parser')
-const awsServerlessExpressMiddleware = require('aws-serverless-express/middleware')
+const express = require('express');
+const bodyParser = require('body-parser');
+const awsServerlessExpressMiddleware = require('aws-serverless-express/middleware');
 
-// declare a new express app
-const app = express()
-app.use(bodyParser.json())
-app.use(awsServerlessExpressMiddleware.eventContext())
+// Import route handlers
+const usersRoutes = require('./routes/users');
+const eventsRoutes = require('./routes/events');
+const projectsRoutes = require('./routes/projects');
+const tasksRoutes = require('./routes/tasks');
+const chatsRoutes = require('./routes/chats');
+const moonsRoutes = require('./routes/moons');
+const filesRoutes = require('./routes/files');
+const planetsRoutes = require('./routes/planets');
+const satellitesRoutes = require('./routes/satellites');
+
+// Initialize Express app
+const app = express();
+app.use(bodyParser.json());
+app.use(awsServerlessExpressMiddleware.eventContext());
 
 // Enable CORS for all methods
 app.use(function(req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*")
-  res.header("Access-Control-Allow-Headers", "*")
-  next()
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "*");
+  next();
 });
 
-
-/**********************
- * Example get method *
- **********************/
-
-app.get('/users', function(req, res) {
-  // Add your code here
-  res.json({success: 'users get call succeed!', url: req.url});
-});
-
-app.get('/events', function(req, res) {
-  // Add your code here
-  res.json({success: 'events get call succeed!', url: req.url});
-});
-
-/****************************
-* Example post method *
-****************************/
-
-app.post('/users', function(req, res) {
-  // Add your code here
-  res.json({success: 'post call succeed!', url: req.url, body: req.body})
-});
-
-app.post('/users/*', function(req, res) {
-  // Add your code here
-  res.json({success: 'post call succeed!', url: req.url, body: req.body})
-});
-
-/****************************
-* Example put method *
-****************************/
-
-app.put('/users', function(req, res) {
-  // Add your code here
-  res.json({success: 'put call succeed!', url: req.url, body: req.body})
-});
-
-app.put('/users/*', function(req, res) {
-  // Add your code here
-  res.json({success: 'put call succeed!', url: req.url, body: req.body})
-});
-
-/****************************
-* Example delete method *
-****************************/
-
-app.delete('/users', function(req, res) {
-  // Add your code here
-  res.json({success: 'delete call succeed!', url: req.url});
-});
-
-app.delete('/users/*', function(req, res) {
-  // Add your code here
-  res.json({success: 'delete call succeed!', url: req.url});
-});
+// Use route handlers
+app.use('/users', usersRoutes);
+app.use('/events', eventsRoutes);
+app.use('/projects', projectsRoutes);
+app.use('/tasks', tasksRoutes);
+app.use('/chats', chatsRoutes);
+app.use('/moons', moonsRoutes);
+app.use('/files', filesRoutes);
+app.use('/planets', planetsRoutes);
+app.use('/satellites', satellitesRoutes);
 
 app.listen(3000, function() {
-    console.log("App started")
+    console.log("App started");
 });
 
-// Export the app object. When executing the application local this does nothing. However,
-// to port it to AWS Lambda we will create a wrapper around that will load the app from
-// this file
-module.exports = app
+module.exports = app;
