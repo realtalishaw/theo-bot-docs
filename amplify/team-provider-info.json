@@ -24,7 +24,7 @@
           "jiraApi": "ATATT3xFfGF0KzHlAhsJJ8f7YwnSDXE20JHhwSdx0ErK7LuP0XnIEWVzeYqz9L1Sw47KtOEodyIvxGuJbtEQpgqB3lun3s7HCObj-5uTyG1HGpScwG3TzfNgR-hTfNemhoaTI-eIOfMdcPVQFiFLqZxDXZRW-OPst7XojV2Loi-DqwoF7Kavc8A=AC41406D",
           "pineconeApi": "1c783c5c-ddc7-4418-88d8-71278ce7f6dd",
           "deploymentBucketName": "amplify-theobotdocs-dev-142705-deployment",
-          "s3Key": "amplify-builds/theobotapi-6a6e65566c3970384e7a-build.zip"
+          "s3Key": "amplify-builds/theobotapi-75415672565568566442-build.zip"
         },
         "S3Triggerd330daf8": {
           "deploymentBucketName": "amplify-theobotdocs-dev-142705-deployment",

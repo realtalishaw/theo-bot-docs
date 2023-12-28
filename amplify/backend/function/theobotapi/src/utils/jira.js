@@ -13,7 +13,9 @@ async function createProjectInJira(projectData) {
     projectTypeKey: 'software',
     description: projectData.description
   };
-
+  
+  console.log(jiraProjectData);
+  
   try {
     const response = await axios.post(jiraApiUrl, jiraProjectData, {
       headers: {
@@ -108,7 +110,18 @@ async function createTaskInJira(title, description, projectID, dueDate, taskType
   }
 }
 
+function generateProjectKey(projectName) {
+  // Remove non-alphanumeric characters and convert to uppercase
+  const sanitizedProjectName = projectName.replace(/[^a-zA-Z0-9]/g, '').toUpperCase();
 
+  // Ensure the key is no longer than 10 characters (adjust as needed)
+  const truncatedProjectName = sanitizedProjectName.substring(0, 10);
+
+  // Add a prefix or suffix if necessary
+  const finalProjectKey = `PROJ-${truncatedProjectName}`;
+
+  return finalProjectKey;
+}
 
 
 module.exports = { createProjectInJira, createTaskInJira };
